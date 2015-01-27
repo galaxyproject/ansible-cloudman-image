@@ -1,0 +1,111 @@
+---
+# Install system packages
+- name: Add custom Galaxy PPA (used for nginx package)
+  apt_repository: repo="ppa:galaxyproject/nginx" update_cache=no
+
+- name: Add Docker repository key
+  apt_key: url="https://get.docker.io/gpg" id="A88D21E9"
+
+- name: Add Docker repository
+  apt_repository: repo='deb http://get.docker.io/ubuntu docker main' update_cache=no
+
+- name: Add Cloudera repository
+  get_url:
+    url=http://archive.cloudera.com/cm5/ubuntu/trusty/amd64/cm/cloudera.list
+    dest=/etc/apt/sources.list.d/cloudera_trusty.list
+
+- name: Add Cloudera's apt key
+  apt_key: url=http://archive.cloudera.com/cdh5/ubuntu/trusty/amd64/cdh/archive.key
+
+- name: Update APT cache
+  apt: update_cache=yes
+
+- name: Install required system packages
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - ant
+    - atop
+    - axel
+    - bioperl
+    - cmake
+    - curl
+    - g++
+    - gcc
+    - gfortran
+    - git-core
+    - htop
+    - iftop
+    - iotop
+    - ipython
+    - libffi-dev
+    - liblapack-dev
+    - libncurses5-dev
+    - libopenblas-dev
+    - libpam0g-dev
+    - libpq-dev
+    - libsparsehash-dev
+    - make
+    - mercurial
+    - nmon
+    - openssh-server
+    - patch
+    - postgresql
+    - postgresql
+    - postgresql-client
+    - postgresql-plpython-9.3
+    - python-dev
+    - python-prettytable
+    - python-psycopg2
+    - rsync
+    - slurm-drmaa-dev
+    - swig
+    - sysstat
+    - unzip
+    - vim
+    - wget
+    - zlib1g-dev
+
+- name: Install CloudMan-required system packages
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - automake  # s3fs required
+    - build-essential  # s3fs required
+    - cloudera-manager-daemons  # Cloudera Manager
+    - cloudera-manager-server  # Cloudera Manager
+    - fail2ban
+    - fuse
+    - glusterfs-client
+    - libcurl4-openssl-dev  # s3fs required
+    - libfuse-dev  # s3fs required
+    - libfuse2
+    - libmysql-java  # Cloudera Manager required
+    - libpcre3-dev
+    - libreadline6-dev
+    - libslurm-dev
+    - libssl-dev
+    - libtool  # s3fs required
+    - libxml2-dev  # s3fs required
+    - libmunge-dev
+    - lxc-docker
+    - mime-support  # s3fs required
+    - munge
+    - mysql-server  # Cloudera Manager required
+    - nfs-common
+    - nfs-kernel-server
+    - ntp  # Cloudera Manager required
+    - pkg-config
+    - postgresql-server-dev-9.3
+    - python-pip
+    - python-tk  # for IPython %cpaste magic function
+    - rabbitmq-server
+    - slurm-llnl
+    - xfsprogs
+    - nginx-extras
+
+- name: Download Fuse .deb
+  get_url:
+    url=http://ftp.cn.debian.org/debian/pool/main/f/fuse/fuse-utils_2.9.0-2+deb7u1_all.deb
+    dest=/tmp/fuse-utils_2.9.0-2+deb7u1_all.deb
+
+- name: Install Fuse
+  apt: deb=/tmp/fuse-utils_2.9.0-2+deb7u1_all.deb
