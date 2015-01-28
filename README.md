@@ -8,12 +8,14 @@ The role has been developed and tested on Ubuntu 14.04. It requires `sudo` acces
 Dependencies
 ------------
 This role leverages Oracle Java on the target system and uses [`smola.java` role][java]
-for this purpose. To satisfy this requirement it is necessary to install the
-required role with the following command (this will download the given role from
-Ansible Galaxy and place it in `roles` subdirectory) (unfortunately Ansible does
-not have an option to have this done automatically):
+for this purpose. It also uses [`galaxyprojectdotorg.galaxy-os` role][gos].
+To satisfy these requirements it is necessary to install the required roles with
+the following commands (this will download the given roles from Ansible Galaxy
+and place them in `roles` subdirectory; unfortunately, Ansible does not have an
+option to have this done automatically):
 
     $ ansible-galaxy install smola.java -p roles
+    $ ansible-galaxy install galaxyprojectdotorg.galaxy-os -p roles
 
 Role variables
 --------------
@@ -32,7 +34,7 @@ playbook (e.g., `image-builder` for the sample playbook provided below).
     and allows Galaxy to authenticate FTP users
 
 ### Optional variables ###
- - `galaxy_user_name`: (default: `galaxy`) system username to be used for for
+ - `galaxy_user_name`: (default: `galaxy`) system username to be used for
     Galaxy
  - `galaxyFS_base_dir`: (default: `/mnt/galaxy`) the base path under which the
     galaxy file system will be placed
@@ -50,8 +52,6 @@ playbook (e.g., `image-builder` for the sample playbook provided below).
 The following variables can be set to either `yes` or `no` to indicate if the
 given part of the role should be executed:
  - `cm_install_packages`: (default: `yes`) install system level packages
- - `cm_install_libraries`: (default: `yes`) install scripting language libraries
- - `cm_add_system_users`: (default: `yes`) configure system level users
  - `cm_venvburrito`: (default: `yes`) whether to setup virtual burrito virtual
     environment for CloudMan
  - `cm_system_environment`: (default: `yes`) setup system-level configurations
@@ -77,12 +77,12 @@ file that contains access information for the instance, for example:
 
 Next, set any variables as desired and place the role into a playbook file
 (e.g., `playbook.yml`). This playbook assumes the role has been placed into
-`roles/galaxyproject.cloudman_image` directory:
+`roles/galaxyprojectdotorg.cloudman-image` directory:
 
     - hosts: image-builder
       sudo: yes
       roles:
-        - galaxyproject.cloudman_image
+        - galaxyprojectdotorg.cloudman-image
           vnc_password: <some_password>
           psql_galaxyftp_password: <a_different_password>
 
@@ -97,3 +97,4 @@ before creating an image.
 Upon completion, an image can be create using the cloud console.
 
 [java]: https://galaxy.ansible.com/list#/roles/1209
+[gos]: https://galaxy.ansible.com/list#/roles/2746

@@ -2,7 +2,6 @@
 # Variables used during the image build-process
 
 # System user details
-galaxy_user_uid: 1001
 default_user: ubuntu
 default_user_home: /home/ubuntu
 
