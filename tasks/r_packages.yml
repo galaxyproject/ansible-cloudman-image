@@ -6,6 +6,7 @@
   with_items:
     - doParallel
     - devtools
+    - snow
 
 - name: Add Bioconductor BiocParallel package
   command:  Rscript --slave --no-save --no-restore-history -e "source('http://bioconductor.org/biocLite.R'); biocLite(); biocLite('BiocParallel');"
