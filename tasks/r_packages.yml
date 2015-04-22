@@ -1,0 +1,12 @@
+---
+# Install r-packages
+
+- name: Add R packages
+  command: Rscript --slave --no-save --no-restore-history -e "if (! ('{{item}}' %in% installed.packages()[,'Package'])) install.packages(pkgs='{{item}}', repos=c('http://cran.cnr.Berkeley.edu/'))"
+  with_items:
+    - doParallel
+    - devtools
+
+- name: Add Bioconductor BiocParallel package
+  command:  Rscript --slave --no-save --no-restore-history -e "source('http://bioconductor.org/biocLite.R'); biocLite(); biocLite('BiocParallel');"
+
