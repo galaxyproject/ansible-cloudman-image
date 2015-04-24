@@ -29,7 +29,7 @@
 - include: mpi_install.yml
   when: cm_install_mpi and not only_cleanup|bool
 
-- include: r_package_install.yml
+- include: r_packages.yml
   when: cm_install_r_packages and not only_cleanup|bool
 
 - include: cleanup.yml
