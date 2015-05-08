@@ -362,6 +362,50 @@ def _handle_freenx(passwd):
     else:
         log.info("freenx-server is not installed; not configuring it")
 
+
+def _run(cmd):
+    if not cmd:
+        log.error("Trying to run an empty command? '{0}'".format(cmd))
+        return False
+    try:
+        process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        stdout, stderr = process.communicate()
+        if process.returncode == 0:
+            log.debug("Successfully ran '%s'" % cmd)
+            if stdout:
+                return stdout
+            else:
+                return True
+        else:
+            log.error("Error running '%s'. Process returned code '%s' and following stderr: '%s'"
+                      % (cmd, process.returncode, stderr))
+            return False
+    except Exception, e:
+        log.error("Exception running '%s': '%s'" % (cmd, e))
+        return False
+
+
+def _ensure_ephemeral_disk_mounted():
+    """
+    Make sure `/mnt` is a mounted device vs. just being part of `/`.
+
+    At least some AWS instance types (e.g., r3) do not auto-mount what's in
+    `/ets/fstab` so make sure the ephemeral disks are in fact mounted.
+    http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html#InstanceStoreTrimSupport
+    """
+    if not _run('mountpoint -q /mnt'):
+        device = '/dev/xvdb'  # Most of AWS instances have this device
+        if os.path.exists(device):
+            log.debug("/mnt is not a mountpoint; will try to mount it from {0}"
+                      .format(device))
+            _run('mkfs.xfs {0}'.format(device))
+            _run('mount -o discard {0} /mnt'.format(device))
+        else:
+            log.warning("Mountpoint /mnt not available and no device {0}"
+                        .format(device))
+    else:
+        log.debug("/mnt is already a mountpoint so not mounting it again.")
+
 # ====================== Actions methods ======================
 
 def _handle_empty():
@@ -491,6 +535,8 @@ def _handle_yaml(user_data):
     log.debug("Composed user data: %s" % ud)
     with open(USER_DATA_FILE, 'w') as ud_yaml:
         yaml.dump(ud, ud_yaml, default_flow_style=False)
+
+    _ensure_ephemeral_disk_mounted()
 
     # Get & run boot script
     if _get_boot_script(ud):
