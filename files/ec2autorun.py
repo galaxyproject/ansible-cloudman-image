@@ -34,20 +34,12 @@ logging.getLogger('boto').setLevel(logging.INFO)  # Only log boto messages >=INF
 log = None
 
 USER_DATA_URL = 'http://169.254.169.254/latest/user-data'
-<<<<<<< HEAD
-# USER_DATA_URL = 'http://userwww.service.emory.edu/~eafgan/content/userData.yaml.sample' # used for testing
-# USER_DATA_URL = 'http://userwww.service.emory.edu/~eafgan/content/url_ud.txt' # used for testing
-LOCAL_PATH = '/opt/cloudman/boot' # Local path destination used for storing/reading any files created by this script
-USER_DATA_FILE_NAME = 'userData.yaml' # Local file with user data formatted by this script
-USER_DATA_FILE = os.path.join(LOCAL_PATH, USER_DATA_FILE_NAME) # The final/processed UD file
-=======
 # Local path destination used for storing/reading any files created herein
-LOCAL_PATH = '/tmp/cm'
+LOCAL_PATH = '/opt/cloudman/boot'
 # Local file with user data (UD) formatted by this script
 USER_DATA_FILE_NAME = 'userData.yaml'
 # The final/processed UD file
 USER_DATA_FILE = os.path.join(LOCAL_PATH, USER_DATA_FILE_NAME)
->>>>>>> dc95eb110b43f19183350abf0fbf347a032f94e6
 # Local file containing UD in its original format
 USER_DATA_ORIG = os.path.join(LOCAL_PATH, 'original_%s' % USER_DATA_FILE_NAME)
 # Object store root URL for retrieving CloudMan-related files
