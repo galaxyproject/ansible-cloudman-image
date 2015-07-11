@@ -26,7 +26,7 @@ log = None
 USER_DATA_URL = 'http://169.254.169.254/latest/user-data'
 # USER_DATA_URL = 'http://userwww.service.emory.edu/~eafgan/content/userData.yaml.sample' # used for testing
 # USER_DATA_URL = 'http://userwww.service.emory.edu/~eafgan/content/url_ud.txt' # used for testing
-LOCAL_PATH = '/tmp/cm' # Local path destination used for storing/reading any files created by this script
+LOCAL_PATH = '/opt/cloudman/boot' # Local path destination used for storing/reading any files created by this script
 USER_DATA_FILE_NAME = 'userData.yaml' # Local file with user data formatted by this script
 USER_DATA_FILE = os.path.join(LOCAL_PATH, USER_DATA_FILE_NAME) # The final/processed UD file
 # Local file containing UD in its original format
@@ -508,7 +508,7 @@ def _parse_user_data(ud):
 
 def main():
     if not os.path.exists(LOCAL_PATH):
-        os.mkdir(LOCAL_PATH)
+        os.mkdirs(LOCAL_PATH)
     global log
     log = _setup_logging()
     ud = _get_user_data()
