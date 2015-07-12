@@ -596,7 +596,7 @@ def _parse_user_data(ud):
 
 def main():
     if not os.path.exists(LOCAL_PATH):
-        os.mkdirs(LOCAL_PATH)
+        os.makedirs(LOCAL_PATH)
     global log
     log = _setup_logging()
     ud = _get_user_data()
