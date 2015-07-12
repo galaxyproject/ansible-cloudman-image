@@ -116,5 +116,5 @@
   shell: iptables-restore < /etc/iptables.firewall.rules
   sudo_user: root
 
-- name: Autostart firewall on startup
-  copy: src=startup_firewall.sh dest=/etc/network/if-pre-up.d/firewall mode="u+x"
+#- name: Autostart firewall on startup
+#  copy: src=startup_firewall.sh dest=/etc/network/if-pre-up.d/firewall mode="u+x"
