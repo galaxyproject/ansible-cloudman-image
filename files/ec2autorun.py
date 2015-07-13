@@ -35,7 +35,7 @@ log = None
 
 USER_DATA_URL = 'http://169.254.169.254/latest/user-data'
 # Local path destination used for storing/reading any files created herein
-LOCAL_PATH = '/tmp/cm'
+LOCAL_PATH = '/opt/cloudman/boot'
 # Local file with user data (UD) formatted by this script
 USER_DATA_FILE_NAME = 'userData.yaml'
 # The final/processed UD file
@@ -596,7 +596,8 @@ def _parse_user_data(ud):
 
 def main():
     if not os.path.exists(LOCAL_PATH):
-        os.mkdir(LOCAL_PATH)
+        os.makedirs(LOCAL_PATH)
+    os.chmod(LOCAL_PATH, 400)
     global log
     log = _setup_logging()
     ud = _get_user_data()
