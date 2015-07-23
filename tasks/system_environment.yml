@@ -96,10 +96,10 @@
 - name: Configure logrotate
   copy: src=cloudman.logrotate dest=/etc/logrotate.d/cloudman
 
-- name: Copy CloudMan's ec2autorun
-  copy: src=ec2autorun.py dest=/usr/bin/ mode=0744
+- name: Copy CloudMan's cm_autorun
+  copy: src=cm_autorun.py dest=/usr/bin/ mode=0744
 
-- name: Configure ec2autorun as an upstart job
+- name: Configure cm_autorun as an upstart job
   copy: src=cloudman.conf dest=/etc/init/cloudman.conf
 
 - name: Disable ipv6
