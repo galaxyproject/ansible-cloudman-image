@@ -1,4 +1,4 @@
 sinfo -o"%c %n"
 sudo su galaxy
-sudo -i
-tail -c +1 -f /mnt/cm/paster.log
+sudo -s
+tail -c +1 -f /var/log/cloudman/cloudman.log
