@@ -118,3 +118,10 @@
 
 - name: Autostart firewall on startup
   copy: src=startup_firewall.sh dest=/etc/network/if-pre-up.d/firewall mode="u+x"
+
+- name: Set max number of open files for galaxy system user
+  lineinfile: dest=/etc/security/limits.conf line="{{ item }}"
+  with_items:
+    - "galaxy hard nofile 16384"
+    - "galaxy soft nofile 16384"
+  sudo_user: root
