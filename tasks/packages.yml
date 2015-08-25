@@ -33,6 +33,7 @@
     - fail2ban
     - fuse
     - glusterfs-client
+    - jsvc  # Cloudgene required
     - libcurl4-openssl-dev  # s3fs required
     - libfuse-dev  # s3fs required
     - libfuse2
@@ -64,5 +65,10 @@
     - uwsgi-plugin-python
     - xfsprogs
 
+<<<<<<< HEAD
 - name: Install new r-base 3.2.2 or above
   apt: name=r-base=3.2* state=present
+=======
+- name: Upgrade system packages
+  apt: upgrade=yes
+>>>>>>> galaxyproject/master
