@@ -8,9 +8,8 @@
 
 - name: Add line to apt sources.list for R version upgrade
   lineinfile:
-    dest=/ect/apt/source.list
-    insertafter=EOF
-    line='deb http://cran.cnr.Berkeley.edu/bin/linux/ubuntu trusty/
+    dest=/etc/apt/sources.list
+    line="deb http://cran.cnr.Berkeley.edu/bin/linux/ubuntu trusty/"
 
 - name: Add Cloudera's apt key
   apt_key: url=http://archive.cloudera.com/cdh5/ubuntu/trusty/amd64/cdh/archive.key
@@ -65,10 +64,8 @@
     - uwsgi-plugin-python
     - xfsprogs
 
-<<<<<<< HEAD
 - name: Install new r-base 3.2.2 or above
   apt: name=r-base=3.2* state=present
-=======
+
 - name: Upgrade system packages
   apt: upgrade=yes
->>>>>>> galaxyproject/master
