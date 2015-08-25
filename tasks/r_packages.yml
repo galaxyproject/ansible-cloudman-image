@@ -1,6 +1,24 @@
 ---
 # Install r-packages
 
+- name: Make new file ~/.Rprofile and add option to nullify rgl
+  command: echo "options(rgl.useNULL=TRUE)" > ~/.Rprofile
+
+- name: Build dependency for rgl
+  apt: pkg=r-cran-rgl state=build-dep
+
+- name: Download BiocInstaller 1.19.11 (or latest)
+  get_url:
+    url=http://bioconductor.riken.jp/packages/3.2/bioc/src/contrib/BiocInstaller_1.19.11.tar.gz
+    dest=/tmp/BiocInstaller.tar.gz
+
+- name: Install from Command line via new r-base
+  sudo: yes
+  command: R CMD INSTALL /tmp/BiocInstaller.tar.gz
+
+- name: Add Bioconductor BiocParallel package
+  command:  Rscript --slave --no-save --no-restore-history -e "source('http://bioconductor.org/biocLite.R'); biocLite("BiocUpgrade"); install.packages("mixOmics");"
+
 - name: Add R packages
   command: Rscript --slave --no-save --no-restore-history -e "if (! ('{{item}}' %in% installed.packages()[,'Package'])) install.packages(pkgs='{{item}}', repos=c('http://cran.cnr.Berkeley.edu/'))"
   environment:
@@ -14,5 +32,4 @@
     - Rmpi
 
 - name: Add Bioconductor BiocParallel package
-  command:  Rscript --slave --no-save --no-restore-history -e "source('http://bioconductor.org/biocLite.R'); biocLite(); biocLite('BiocParallel');"
-
+  command:  Rscript --slave --no-save --no-restore-history -e "source('http://bioconductor.org/biocLite.R'); biocLite(); biocLite("BiocParallel");"
