@@ -28,5 +28,10 @@
     - foreach
     - Rmpi
 
+
+- name: Add R packages
+  command: Rscript --slave --no-save --no-restore-history -e "if (! ('Rmpi' %in% installed.packages()[,'Package'])) install.packages(pkgs='Rmpi',configure.args='--with-mpi=/usr/local', repos=c('http://cran.cnr.Berkeley.edu/'))"
+
+
 - name: Add Bioconductor BiocParallel package
   command:  Rscript --slave --no-save --no-restore-history -e "source('http://bioconductor.org/biocLite.R'); biocLite(); biocLite('BiocParallel');"
