@@ -26,7 +26,7 @@
     - snow
     - parallel
     - foreach
-    - Rmpi
+    # - Rmpi
 
 
 - name: Add R packages
