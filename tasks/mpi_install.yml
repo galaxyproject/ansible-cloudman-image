@@ -25,5 +25,5 @@
     - make
     - make install
 
-#- name: Make sure LD_LIBRARY_PATH is set
-#  lineinfile: dest=/etc/bash.bashrc line='export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib/"'
+- name: Make sure LD_LIBRARY_PATH is set
+  lineinfile: dest=/etc/bash.bashrc line='export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib/"'
