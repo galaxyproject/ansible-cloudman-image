@@ -14,5 +14,5 @@ galaxy_info:
   - cloud
   - clustering
 dependencies:
-  - { role: smola.java, java_packages: 'oracle-java7-installer' }
+  - { role: smola.java, java_packages: 'oracle-java8-installer' }
   - { role: galaxyprojectdotorg.galaxy-os, galaxy_user_uid: 1001}
