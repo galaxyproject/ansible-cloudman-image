@@ -56,6 +56,7 @@
     - postgresql-server-dev-9.3
     - python-pip
     - python-tk  # for IPython %cpaste magic function
+    - libyaml-dev
     - python-yaml
     - rabbitmq-server
     - screen
