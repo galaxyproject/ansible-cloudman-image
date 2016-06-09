@@ -83,7 +83,6 @@
   get_url: url={{ cm_source_repo }}/requirements.txt dest=/tmp/requirements.txt
 
 - name: Create a virtualenv for CloudMan
-  sudo_user: "{{ default_user }}"
   pip: requirements=/tmp/requirements.txt virtualenv={{ cm_venv_path }} state=latest
 
 - name: Configure logrotate
