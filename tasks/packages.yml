@@ -65,7 +65,7 @@
     - xfsprogs
 
 - name: Install new r-base 3.2.2 or above
-  apt: name=r-base=3.2* state=present
+  apt: name=r-base state=latest
 
 - name: Upgrade system packages
   apt: upgrade=yes
