@@ -5,14 +5,8 @@
 - include: packages.yml
   when: cm_install_packages and not only_cleanup|bool
 
-- include: install_venvburrito.yml username='galaxy' user_home='/home/galaxy'
-  when: cm_venvburrito and not only_cleanup|bool
-
-- include: install_venvburrito.yml username='{{ default_user }}' user_home='{{ default_user_home }}'  #'
-  when: cm_venvburrito and not only_cleanup|bool
-
 - include: system_environment.yml
-  when: cm_system_environment and cm_venvburrito and not only_cleanup|bool
+  when: cm_system_environment and not only_cleanup|bool
 
 - include: system_tools.yml
   when: cm_system_tools and not only_cleanup|bool

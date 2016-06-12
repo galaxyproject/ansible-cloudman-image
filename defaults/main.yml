@@ -8,8 +8,7 @@
 # Controls which tasks are included, in case you want to execute/update
 # only certain parts of the role.
 cm_install_packages: yes
-cm_venvburrito: yes
-cm_system_environment: yes  # Also requires cm_venvburrito to be set
+cm_system_environment: yes
 cm_system_tools: yes
 cm_docker: yes
 cm_install_s3fs: yes
@@ -22,6 +21,9 @@ cleanup: no
 # If only_cleanup is set, only the cleanup tasks will run and no other.
 # This is intended to be set as a command line variable.
 only_cleanup: no
+
+# CloudMan virtualenv path
+cm_venv_path: /opt/cloudman/boot/.venv
 
 # Galaxy application details
 # **NOTE** that these variables are also used by Galaxy role

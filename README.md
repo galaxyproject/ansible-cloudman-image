@@ -59,10 +59,7 @@ below).
 The following variables can be set to either `yes` or `no` to indicate if the
 given part of the role should be executed:
  - `cm_install_packages`: (default: `yes`) install system level packages
- - `cm_venvburrito`: (default: `yes`) whether to setup virtual burrito virtual
-    environment for CloudMan
  - `cm_system_environment`: (default: `yes`) setup system-level configurations
-    *Note* that setting this option also requires `cm_venvburrito` to be set.
  - `cm_system_tools`: (default: `yes`) install given tools system wide
  - `cm_docker`: (default: `yes`) pull Docker containers on the image
  - `cm_install_s3fs`: (default: `yes`) whether to install S3FS or not

@@ -14,6 +14,10 @@
     - vsftpd
     - supervisor
 
+- name: Apt autoremove unused dependencies
+  # apt: autoremove=yes - won't be supported till ansible 2.1
+  shell: apt-get -y autoremove
+
 - name: Clean apt cache to recover some disk space
   shell: apt-get clean
   sudo: yes
