@@ -44,6 +44,7 @@
     - libtool  # s3fs required
     - libxml2-dev  # s3fs required
     - libmunge-dev
+    - libyaml-dev
     - mime-support  # s3fs required
     - munge
     - nfs-common
@@ -56,17 +57,14 @@
     - postgresql-server-dev-9.3
     - python-pip
     - python-tk  # for IPython %cpaste magic function
-    - libyaml-dev
     - python-yaml
+    - r-base
     - rabbitmq-server
     - screen
     - slurm-llnl
     - uwsgi
     - uwsgi-plugin-python
     - xfsprogs
-
-- name: Install new r-base 3.2.2 or above
-  apt: name=r-base state=latest
 
 - name: Upgrade system packages
   apt: upgrade=yes
