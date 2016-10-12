@@ -30,8 +30,6 @@
 
 - name: Perform AutoFS and FUSE configuration for CernVM-FS
   command: cvmfs_config setup
-  notify:
-    - restart autofs
 
 - name: Configure CernVM-FS domain
   copy:
@@ -53,3 +51,22 @@
     owner: "root"
     group: "root"
     mode: "0644"
+
+# The following is required so the next tasks 'see' the dirs under /cvmfs
+- name: Restart autofs service
+  service:
+    name: autofs
+    state: restarted
+
+- name: Create /galaxy dir
+  file:
+    path: /galaxy
+    state: directory
+
+# This is required to be able to use Galaxy .len files from Main w/o mods
+- name: Create a symlink from CVMFS to /galaxy/data
+  file:
+    src: /cvmfs/data.galaxyproject.org/byhand
+    dest: /galaxy/data
+    state: link
+    force: yes
