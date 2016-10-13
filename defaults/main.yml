@@ -50,6 +50,7 @@ galaxy_config_templates:
   - src: templates/galaxy_welcome.html.j2
     dest: "{{ galaxy_server_dir }}/static/welcome.html"
 
+cvmfs_quota_limit: 10000  # 10GB cache (/ must have this much disk available)
 cvmfs_deb_url: "https://ecsft.cern.ch/dist/cvmfs/cvmfs-2.1.20/cvmfs_2.1.20_amd64.deb"
 cvmfs_deb_config_url: "https://ecsft.cern.ch/dist/cvmfs/cvmfs-config/cvmfs-config-default_latest_all.deb"
 cvmfs_keys:
