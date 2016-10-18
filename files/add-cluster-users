@@ -1,0 +1,61 @@
+# Add system users to the cluster.
+#
+# The script requires an argument with a path to a file that contains a list of
+# users and their passwords. The script will create those users on the master
+# instance and all the worker nodes. The input file needs to be available on the
+# nodes so place it on a shared file system.
+#
+# The script needs to be run as root user.
+#
+# The format for the input file is
+#   user1,pwd1
+#   user2,pwd2
+#
+# Usage:
+#   add-cluster-users /mnt/transient_nfs/user_list.txt
+#
+
+function create_users {
+    while IFS=',' read USER PWD; do
+        if [ `grep -c "^$USER" /etc/passwd` -eq 0 ]; then
+            useradd --home /home/$USER --create-home $USER --shell /bin/bash
+            { echo "$PWD"; echo "$PWD"; } | passwd $USER 2&>1 /dev/null;
+            echo "Added user $USER"
+        else
+            echo "User $USER already exists; skipping."
+        fi
+    done < $1
+}
+
+function log {
+    printf "\n$1\n"
+    printf "%0.s-" $(seq 1 ${#1})
+    printf "\n"
+}
+
+is_worker=0
+while getopts ":w" flag; do
+    case $flag in
+        w) is_worker=1;;
+        \?) echo "Unrecognized option $OPTARG"
+    esac
+done
+shift $((OPTIND-1))  # This tells getopts to move on to the next argument.
+
+# Create users on the localhost
+if [ $is_worker -eq 0 ]; then
+    log "Adding users on localhost; using input file $1"
+fi
+create_users $1
+
+if [ $is_worker -eq 0 ]; then # Create users on the workers nodes
+    # Extract worker node names from /etc/hosts - this heavily depends on the
+    # way CloudMan names worker nodes
+    sed -ne '/w[0-9][0-9]*/,$p' /etc/hosts | cut -d' ' -f2 | while read -r host
+    do
+        log "Adding users on host $host; using input file $1"
+        sshpass -p `cat /opt/cloudman/boot/userData.yaml | grep password | \
+            cut -f2 -d' '` ssh -o StrictHostKeyChecking=no -o CheckHostIP=no \
+            -o "UserKnownHostsFile /dev/null" $host "add-cluster-users -w $1"
+    done
+fi

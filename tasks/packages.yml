@@ -62,6 +62,7 @@
     - rabbitmq-server
     - screen
     - slurm-llnl
+    - sshpass
     - uwsgi
     - uwsgi-plugin-python
     - xfsprogs

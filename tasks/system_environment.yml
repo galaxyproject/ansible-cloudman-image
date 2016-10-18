@@ -1,6 +1,9 @@
 ---
 # Setup system environment
 
+- name: Add add-cluster-users script
+  copy: src=add-cluster-users dest=/usr/local/bin/add-cluster-users mode=0755
+
 - name: Add cloudgene user
   user: name=cloudgene shell=/bin/bash
 
@@ -73,7 +76,7 @@
     - "{{ galaxy_user_name }}"
 
 - name: Setup IPython env
-  copy: src=ipython_config.py dest="/home/{{ item }}/.ipython/profile_default/ipython_config.py" mode=0644 owner="{{ item }}"
+  copy: src=ipython_config.py dest="/home/{{ item }}/.ipython/profile_default/ipython_config.py" mode=0644 owner="{{ item }}"  #"
   with_items:
     - "{{ default_user }}"
     - "{{ galaxy_user_name }}"
