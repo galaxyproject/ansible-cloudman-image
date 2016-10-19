@@ -19,7 +19,7 @@ function create_users {
     while IFS=',' read USER PWD; do
         if [ `grep -c "^$USER" /etc/passwd` -eq 0 ]; then
             useradd --home /home/$USER --create-home $USER --shell /bin/bash
-            { echo "$PWD"; echo "$PWD"; } | passwd $USER 2&>1 /dev/null;
+            { echo "$PWD"; echo "$PWD"; } | passwd $USER 2> /dev/null
             echo "Added user $USER"
         else
             echo "User $USER already exists; skipping."
