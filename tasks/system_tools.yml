@@ -15,3 +15,11 @@
   with_items:
     - make
     - make install
+
+- name: Fetch AWS CloudWatch scripts
+  unarchive:
+    src: CloudWatchMonitoringScripts-1.2.1.zip
+    dest: /tmp
+
+- name: Move AWS CloudWatch scripts
+  shell: mv /tmp/aws-scripts-mon/*.p? /usr/local/bin/.

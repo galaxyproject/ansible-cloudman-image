@@ -34,6 +34,7 @@
     - glusterfs-client
     - jsvc  # Cloudgene required
     - libcurl4-openssl-dev  # s3fs required
+    - libdatetime-perl
     - libfuse-dev  # s3fs required
     - libfuse2
     - libmysql-java  # Cloudera Manager required
@@ -45,6 +46,7 @@
     - libxml2-dev  # s3fs required
     - libmunge-dev
     - libyaml-dev
+    - libwww-perl
     - mime-support  # s3fs required
     - munge
     - nfs-common
