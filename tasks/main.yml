@@ -35,5 +35,8 @@
 - include: r_packages.yml
   when: cm_install_r_packages and not only_cleanup|bool
 
+- include: setup_aws_enhanced_networking.yml
+  when: cm_aws_enhanced_networking and not only_cleanup|bool
+
 - include: cleanup.yml
   when: cleanup|bool or only_cleanup|bool

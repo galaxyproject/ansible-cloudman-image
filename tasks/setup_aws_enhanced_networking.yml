@@ -1,0 +1,28 @@
+---
+
+- name: Download ixgbevf
+  get_url:
+    url: http://sourceforge.net/projects/e1000/files/ixgbevf%20stable/{{ ixgbevf_version }}/ixgbevf-{{ ixgbevf_version }}.tar.gz
+    dest: /tmp/ixgbevf.tar.gz
+
+- name: Unarchive ixgbevf
+  unarchive:
+    src: /tmp/ixgbevf.tar.gz
+    dest: /usr/src/
+    copy: no
+
+- name: Create ixgbevf conf file
+  template:
+    src: ixgbevf_conf.j2
+    dest: /usr/src/ixgbevf-{{ ixgbevf_version }}/dkms.conf
+
+- name: Add, build and install ixgbevf with dkms
+  command: "{{ item }}"
+  with_items:
+    - dkms add -m ixgbevf -v {{ ixgbevf_version }}
+    - dkms build -m ixgbevf -v {{ ixgbevf_version }}
+    - dkms install -m ixgbevf -v {{ ixgbevf_version }}
+  ignore_errors: yes
+
+- name: Rebuild initramfs to load correct module at boot
+  command: update-initramfs -c -k all

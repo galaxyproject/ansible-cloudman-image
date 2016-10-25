@@ -17,6 +17,7 @@ cm_install_proftpd: yes
 cm_install_novnc: no
 cm_install_mpi: yes
 cm_install_r_packages: yes
+cm_aws_enhanced_networking: yes
 cleanup: no
 # If only_cleanup is set, only the cleanup tasks will run and no other.
 # This is intended to be set as a command line variable.
@@ -42,6 +43,8 @@ nginx_upload_store_path: "{{ galaxyFS_base_dir }}/upload_store"
 
 # Specify the version of bcftools to install
 cm_bcftools_version: 1.2
+
+ixgbevf_version: 2.16.4
 
 cm_docker_image: bgruening/docker-ipython-notebook:15.10.1
 

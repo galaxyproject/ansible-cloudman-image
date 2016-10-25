@@ -29,6 +29,7 @@
     - cloudera-manager-daemons  # Cloudera Manager
     - cloudera-manager-server  # Cloudera Manager
     - cloudera-manager-agent  # Cloudera Manager
+    - dkms  # AWS Enhanced Networking
     - fail2ban
     - fuse
     - glusterfs-client
@@ -47,6 +48,7 @@
     - libmunge-dev
     - libyaml-dev
     - libwww-perl
+    - linux-headers-3.13.0-100-lowlatency  # AWS Enhanced Networking
     - mime-support  # s3fs required
     - munge
     - nfs-common
