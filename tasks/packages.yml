@@ -49,6 +49,7 @@
     - libyaml-dev
     - libwww-perl
     - linux-headers-3.13.0-100-lowlatency  # AWS Enhanced Networking
+    - linux-image-3.13.0-100  # Dirty cow patch
     - mime-support  # s3fs required
     - munge
     - nfs-common
