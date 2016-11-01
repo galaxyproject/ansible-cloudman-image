@@ -53,7 +53,7 @@ below).
  - `indicesFS_base_dir`: (default: `/mnt/galaxyIndices`) the path where Galaxy
     reference genomes indices will be stored. Also Galaxy Data Managers will be
     installed here (via the Tool Shed, as designed by Galaxy).
- - `cm_docker_image`: name of the Docker container to preload on the image
+ - `cm_docker_images`: a list of Docker image names to pre-load on the image
 
 ### Control flow variables ###
 The following variables can be set to either `yes` or `no` to indicate if the

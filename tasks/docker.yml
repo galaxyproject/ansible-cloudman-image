@@ -2,9 +2,10 @@
 # Install Docker images
 
 - name: Install docker-py as a workaround for Ansible issue
-  pip: name=docker-py version=1.2.3
+  pip: name=docker-py version=1.10.5
 
-- name: Pull GIE IPython container
+- name: Pull docker images
   docker:
-    image: "{{ cm_docker_image }}"
+    image: "{{ item }}"
     state: present
+  with_items: "{{ cm_docker_images }}"
