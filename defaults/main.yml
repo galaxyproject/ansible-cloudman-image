@@ -51,11 +51,12 @@ cm_docker_images:
   - qiaoy/iobio-bundle.bam-iobio:1.0-ondemand
   - erasche/docker-rstudio-notebook:15.10
 
-# CVMFS client settings
 galaxy_config_templates:
   - src: templates/galaxy_welcome.html.j2
     dest: "{{ galaxy_server_dir }}/static/welcome.html"
 
+# CVMFS client settings
+cm_cvmfs: yes
 cvmfs_quota_limit: 32000  # 32GB cache (/ must have this much disk available)
 cvmfs_deb_url: "https://ecsft.cern.ch/dist/cvmfs/cvmfs-2.1.20/cvmfs_2.1.20_amd64.deb"
 cvmfs_deb_config_url: "https://ecsft.cern.ch/dist/cvmfs/cvmfs-config/cvmfs-config-default_latest_all.deb"
