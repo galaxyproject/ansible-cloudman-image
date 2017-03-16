@@ -58,7 +58,7 @@
     - ntp  # Cloudera Manager required
     - nginx-extras
     - pkg-config
-    - postgresql-server-dev-9.3
+    - postgresql-server-dev-9.5
     - python-pip
     - python-tk  # for IPython %cpaste magic function
     - python-yaml
