@@ -48,7 +48,7 @@
     - libmunge-dev
     - libyaml-dev
     - libwww-perl
-    - linux-headers-3.13.0-100-lowlatency  # AWS Enhanced Networking
+    - linux-headers-4.8.0-41-lowlatency  # AWS Enhanced Networking
     - mime-support  # s3fs required
     - munge
     - nfs-common
