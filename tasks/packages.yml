@@ -50,6 +50,12 @@
         state=started
   when: ansible_distribution_version >= "15.04"
 
+# Keep ansible become/become_user happy when switching to unprivileged users
+# see: http://stackoverflow.com/questions/36646880/ansible-2-1-0-using-become-become-user-fails-to-set-permissions-on-temp-file
+- name: Install setfacl support
+  become: yes
+  apt: pkg=acl
+
 - name: Install CloudMan-required system packages
   apt: pkg={{ item }} state=latest
   with_items:
