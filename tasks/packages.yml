@@ -106,7 +106,7 @@
     - uwsgi-plugin-python
     - xfsprogs
     - aptitude # to keep Ansible happy on Ubuntu >= 16.04
-    - setuptools
+    - python-setuptools
 
 - name: Upgrade system packages
   apt: upgrade=yes
