@@ -47,9 +47,9 @@ cm_bcftools_version: 1.2
 ixgbevf_version: 2.16.4
 
 cm_docker_images:
-  - bgruening/docker-jupyter-notebook:16.01
+  - bgruening/docker-jupyter-notebook:16.01.1
   - qiaoy/iobio-bundle.bam-iobio:1.0-ondemand
-  - erasche/docker-rstudio-notebook:15.10
+  - erasche/docker-rstudio-notebook:17.01
 
 galaxy_config_templates:
   - src: templates/galaxy_welcome.html.j2
