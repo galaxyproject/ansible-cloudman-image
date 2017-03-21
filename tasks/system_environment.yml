@@ -90,8 +90,8 @@
 - name: Copy CloudMan's cm_autorun
   copy: src=cm_autorun.py dest=/usr/bin/ mode=0744
 
-- name: Configure cm_autorun as an upstart job
-  copy: src=cloudman.conf dest=/etc/init/cloudman.conf
+- name: Configure cm_autorun as a systemd service
+  copy: src=cloudman.service dest=/etc/systemd/system/cloudman.service
 
 - name: Disable ipv6
   lineinfile: dest=/etc/sysctl.conf line="{{ item }}"
