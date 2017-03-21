@@ -5,7 +5,7 @@
   copy: src=Rprofile dest=/etc/R/Rprofile.site
 
 - name: Build dependency for rgl
-  apt: pkg=r-cran-rgl state=build-dep
+  apt: pkg=r-cran-rgl state=latest
 
 - name: Add R packages
   command: Rscript --slave --no-save --no-restore-history -e "if (! ('Rmpi' %in% installed.packages()[,'Package'])) install.packages(pkgs='Rmpi',configure.args='--with-mpi=/usr/local', repos=c('http://cran.cnr.Berkeley.edu/'))"
