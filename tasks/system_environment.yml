@@ -93,6 +93,9 @@
 - name: Configure cm_autorun as a systemd service
   copy: src=cloudman.service dest=/etc/systemd/system/cloudman.service
 
+- name: Enable cloudman systemd service
+  systemd: name=cloudman.service enabled=yes
+
 - name: Disable ipv6
   lineinfile: dest=/etc/sysctl.conf line="{{ item }}"
   with_items:
