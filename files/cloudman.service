@@ -3,7 +3,7 @@ Description=Start CloudMan contextualization script
 After=network.target
 
 [Service]
-ExecStartPre=/bin/sh mkdir -p -m 0775 /var/log/cloudman
+ExecStartPre=/bin/sh -c "mkdir -p -m 0775 /var/log/cloudman"
 ExecStart=/usr/bin/python /usr/bin/cm_autorun.py 2> /var/log/cloudman/cm_autorun.log
 
 [Install]
