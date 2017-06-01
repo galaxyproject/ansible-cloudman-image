@@ -3,6 +3,11 @@
 
 - name: Install docker-py as a workaround for Ansible issue
   pip: name=docker-py version=1.10.5
+  when: ansible_distribution_version < "15.04"
+
+- name: Install docker-py as a workaround for Ansible issue
+  pip: name=docker-py state=latest
+  when: ansible_distribution_version >= "15.04"
 
 - name: Pull docker images
   docker:

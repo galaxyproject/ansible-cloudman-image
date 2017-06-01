@@ -2,8 +2,8 @@
 """
 A contextualization script required by CloudMan (http://cloudman.irb.hr/).
 
-The script is automatically run at instance startup (via an `upstart` job;
-see `/etc/init/cloudman.conf`).
+The script is automatically run at instance startup (via a `systemd`
+script; see `/etc/systemd/system/cloudman.service`).
 
 Requires:
     PyYAML http://pyyaml.org/wiki/PyYAMLDocumentation (easy_install pyyaml)

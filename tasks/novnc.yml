@@ -42,11 +42,11 @@
   sudo_user: "{{ default_user }}"
   when: vnc_password is defined
 
-  # Move vnc_auto.html which takes vnc_password as query argument
+  # Move vnc_lite.html which takes vnc_password as query argument
   # to index.html and rewrite it so that password is autoset, no
   # need to specify via query parameter.
 - name: Autoset novnc passwd to match the vnc one
-  shell: sed 's/password\ =/password\ = "{{ vnc_password }}";\/\//' {{ novnc_install_dir }}/vnc_auto.html > {{ novnc_install_dir }}/index.html #"
+  shell: sed 's/password\ =/password\ = "{{ vnc_password }}";\/\//' {{ novnc_install_dir }}/vnc_lite.html > {{ novnc_install_dir }}/index.html #"
 
 - name: Remove temp vncpasswd dir
   file: path=~/vncpasswd state=absent

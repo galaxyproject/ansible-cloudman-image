@@ -20,6 +20,42 @@
 - name: Update APT cache
   apt: update_cache=yes
 
+# Fix for munge incompatibility with 16.04, based on:
+# https://github.com/gc3-uzh-ch/elasticluster/blob/989841fdccf9a59672a5d0a125878779debd3b99/elasticluster/share/playbooks/roles/slurm-common/tasks/munge.yml
+- block:
+    - name: Prevent MUNGE from starting
+      command: systemctl mask munge.service
+      args:
+       creates: '/etc/systemd/system/munge.service'
+    - name: Install MUNGE (Debian/Ubuntu)
+      package:
+        pkg=munge
+        state=latest
+    - name: Allow MUNGE to start
+      command: systemctl unmask munge.service
+      args:
+        removes: /etc/systemd/system/munge.service
+    - name: Add `--syslog` option to `munged` startup
+      lineinfile:
+        dest='/lib/systemd/system/munge.service'
+        line='ExecStart=/usr/sbin/munged --syslog'
+        regexp='^ExecStart=/usr/sbin/munged'
+        state=present
+    - name:  Reload systemd configuration
+      command: systemctl daemon-reload
+    - name: Ensure the MUNGE service is running
+      service:
+        name=munge
+        enabled=yes
+        state=started
+  when: ansible_distribution_version >= "15.04"
+
+# Keep ansible become/become_user happy when switching to unprivileged users
+# see: http://stackoverflow.com/questions/36646880/ansible-2-1-0-using-become-become-user-fails-to-set-permissions-on-temp-file
+- name: Install setfacl support
+  become: yes
+  apt: pkg=acl
+
 - name: Install CloudMan-required system packages
   apt: pkg={{ item }} state=latest
   with_items:
@@ -48,9 +84,8 @@
     - libmunge-dev
     - libyaml-dev
     - libwww-perl
-    - linux-headers-3.13.0-100-lowlatency  # AWS Enhanced Networking
+    - linux-headers-4.8.0-41-lowlatency  # AWS Enhanced Networking
     - mime-support  # s3fs required
-    - munge
     - nfs-common
     - nfs-kernel-server
     - nodejs-legacy  # for IPython Interactive Environment
@@ -58,7 +93,7 @@
     - ntp  # Cloudera Manager required
     - nginx-extras
     - pkg-config
-    - postgresql-server-dev-9.3
+    - postgresql-server-dev-9.5
     - python-pip
     - python-tk  # for IPython %cpaste magic function
     - python-yaml
@@ -70,6 +105,8 @@
     - uwsgi
     - uwsgi-plugin-python
     - xfsprogs
+    - aptitude # to keep Ansible happy on Ubuntu >= 16.04
+    - python-setuptools
 
 - name: Upgrade system packages
   apt: upgrade=yes
