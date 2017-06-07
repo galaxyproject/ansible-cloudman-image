@@ -1,6 +1,9 @@
 ---
 # Setup system environment
 
+- name: Allow guest connections to rabbitmq from cloudman worker nodes
+  copy: src=rabbitmq.config dest=/etc/rabbitmq/rabbitmq.config mode=0755 owner=rabbitmq group=rabbitmq
+
 - name: Add add-cluster-users script
   copy: src=add-cluster-users dest=/usr/local/bin/add-cluster-users mode=0755
 
