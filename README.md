@@ -3,7 +3,7 @@ It is likely to be used in the context of the Galaxy on the Cloud playbook.
 
 Requirements
 ------------
-The role has been developed and tested on Ubuntu 14.04. It requires `sudo` access.
+The role has been developed and tested on Ubuntu 16.04. It requires `sudo` access.
 
 Dependencies
 ------------
