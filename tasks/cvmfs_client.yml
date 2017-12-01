@@ -47,6 +47,7 @@
       CVMFS_REPOSITORIES="{%- for repo in cvmfs_repositories -%}{{ ',' if loop.index0 > 0 else '' }}{{ repo.repository }}{%- endfor -%}"
       CVMFS_HTTP_PROXY="{{ cvmfs_http_proxies | join(';') }}"
       CVMFS_QUOTA_LIMIT="{{ cvmfs_quota_limit | default('4000') }}"
+      CVMFS_USE_GEOAPI=yes
     dest: "/etc/cvmfs/default.local"
     owner: "root"
     group: "root"

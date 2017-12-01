@@ -161,6 +161,7 @@ cvmfs_server_urls:
       - "http://cvmfs1-psu0.galaxyproject.org/cvmfs/@fqrn@"
       - "http://cvmfs1-iu0.galaxyproject.org/cvmfs/@fqrn@"
       - "http://cvmfs1-tacc0.galaxyproject.org/cvmfs/@fqrn@"
+      - "http://cvmfs1-mel0.gvl.org.au/cvmfs/@fqrn@"
 
 cvmfs_repositories:
   # - repository: test.galaxyproject.org
@@ -178,3 +179,4 @@ cvmfs_stratum1_servers:
   - "cvmfs1-psu0.galaxyproject.org"
   - "cvmfs1-iu0.galaxyproject.org"
   - "cvmfs1-tacc0.galaxyproject.org"
+  - "cvmfs1-mel0.gvl.org.au"
