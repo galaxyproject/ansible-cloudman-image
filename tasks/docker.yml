@@ -9,6 +9,16 @@
   pip: name=docker-py state=latest
   when: ansible_distribution_version >= "15.04"
 
+- name: Place Docker config file
+  template:
+    src: docker_daemon.j2
+    dest: /etc/docker/daemon.json
+
+- name: Restart Docker service
+  systemd:
+    name: docker
+    state: restarted
+
 - name: Pull docker images
   docker:
     image: "{{ item }}"
