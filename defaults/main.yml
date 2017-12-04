@@ -62,6 +62,7 @@ cm_cvmfs: yes
 cvmfs_quota_limit: 32000  # 32GB cache (/ must have this much disk available)
 cvmfs_deb_url: "https://ecsft.cern.ch/dist/cvmfs/cvmfs-2.1.20/cvmfs_2.1.20_amd64.deb"
 cvmfs_deb_config_url: "https://ecsft.cern.ch/dist/cvmfs/cvmfs-config/cvmfs-config-default_latest_all.deb"
+cvmfs_cache_base: "/mnt/galaxyIndices/cvmfs/cache"
 cvmfs_keys:
   - path: /etc/cvmfs/keys/test.galaxyproject.org.pub
     key: |
@@ -173,12 +174,12 @@ cvmfs_repositories:
   - repository: data.galaxyproject.org
     stratum0: cvmfs0-psu0.galaxyproject.org
 
-cvmfs_http_proxies:
-  - DIRECT
-  # - "http://cvmfs1-tacc0.galaxyproject.org:3128"
-
 cvmfs_stratum1_servers:
   - "cvmfs1-psu0.galaxyproject.org"
   - "cvmfs1-iu0.galaxyproject.org"
   - "cvmfs1-tacc0.galaxyproject.org"
   - "cvmfs1-mel0.gvl.org.au"
+
+cvmfs_http_proxies: "{{ cvmfs_stratum1_servers }}"
+#   - DIRECT
+#    - "http://cvmfs1-tacc0.galaxyproject.org:3128"
