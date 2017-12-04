@@ -38,5 +38,8 @@
 - include: setup_aws_enhanced_networking.yml
   when: cm_aws_enhanced_networking and not only_cleanup|bool
 
+- include: swap.yml
+  when: cm_configure_swap and not only_cleanup|bool
+
 - include: cleanup.yml
   when: cleanup|bool or only_cleanup|bool
