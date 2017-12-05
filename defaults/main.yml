@@ -180,6 +180,6 @@ cvmfs_stratum1_servers:
   - "cvmfs1-tacc0.galaxyproject.org"
   - "cvmfs1-mel0.gvl.org.au"
 
-cvmfs_http_proxies: "{{ cvmfs_stratum1_servers }}"
-#   - DIRECT
+cvmfs_http_proxies:
+  - DIRECT
 #    - "http://cvmfs1-tacc0.galaxyproject.org:3128"
