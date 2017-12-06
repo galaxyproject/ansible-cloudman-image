@@ -24,6 +24,7 @@ cleanup: no
 only_cleanup: no
 
 # Swapfile setup
+cm_configure_swap: yes
 cm_swap_file: /swapfile
 cm_swap_space: 1G
 
