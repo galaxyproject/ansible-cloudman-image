@@ -15,7 +15,7 @@ cm_install_s3fs: yes
 cm_configure_nginx: yes
 cm_install_proftpd: yes
 cm_install_novnc: no
-cm_install_mpi: yes
+cm_install_mpi: no
 cm_install_r_packages: yes
 cm_aws_enhanced_networking: yes
 cleanup: no
