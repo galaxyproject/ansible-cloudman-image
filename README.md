@@ -20,9 +20,11 @@ option to have this done automatically):
 Additionally, if targeting AWS instances, it is required to install `boto` (v2)
 and `awscli` Python packages as well as export the following environment vars
 with their appropriate values: `EC2_REGION`, `AWS_ACCESS_KEY`, `AWS_SECRET_KEY`.
-The target instance will need to have an elastic IP associated with it and
-you will also need to set the path to your Python interpreter in the inventory
-file under the localhost host definition:
+If you have multiple profiles defined for your `aws` command (i.e., in
+`~/aws/credentials`) and you don't want to use the default one, also do `export
+AWS_PROFILE=<profile name>`. The target instance will need to have an elastic IP
+associated with it and you will also need to set the path to your Python
+interpreter in the inventory file under the localhost host definition:
 
 ```
 [localhost]
