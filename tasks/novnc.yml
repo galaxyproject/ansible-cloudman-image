@@ -74,6 +74,9 @@
 - name: "Make sure lightdm respawns - fix for race condition: https://bugs.launchpad.net/ubuntu/+source/lightdm/+bug/969489"
   lineinfile: dest=/etc/init/lightdm.conf line="respawn" insertafter="stop on runlevel [016]"
 
+- name: "Remove a11y indicator to fix: https://bugs.launchpad.net/lightdm/+bug/1322275"
+  replace: dest=/etc/lightdm/lightdm-gtk-greeter.conf.d/30_lubuntu.conf regexp="show-indicators=~host;~spacer;~clock;~spacer;~session;~language;~a11y;~power" replace="show-indicators=~host;~spacer;~clock;~spacer;~session;~language;~power"
+
 - name: Copy vnc config file for xinetd
   template: src=xinetd_vnc.j2 dest=/etc/xinetd.d/vnc
 
