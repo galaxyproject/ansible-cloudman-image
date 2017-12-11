@@ -17,6 +17,20 @@ option to have this done automatically):
     $ ansible-galaxy install smola.java -p roles
     $ ansible-galaxy install galaxyprojectdotorg.galaxy-os -p roles
 
+Additionally, if targeting AWS instances, it is required to install `boto` (v2)
+and `awscli` Python packages as well as export the following environment vars
+with their appropriate values: `EC2_REGION`, `AWS_ACCESS_KEY`, `AWS_SECRET_KEY`.
+If you have multiple profiles defined for your `aws` command (i.e., in
+`~/aws/credentials`) and you don't want to use the default one, also do `export
+AWS_PROFILE=<profile name>`. The target instance will need to have an elastic IP
+associated with it and you will also need to set the path to your Python
+interpreter in the inventory file under the localhost host definition:
+
+```
+[localhost]
+127.0.0.1 ansible_python_interpreter=/usr/local/bin/python
+```
+
 Role variables
 --------------
 All of the listed variabls are stored in `defaults/main.yml`. Check that file
@@ -54,6 +68,10 @@ below).
     reference genomes indices will be stored. Also Galaxy Data Managers will be
     installed here (via the Tool Shed, as designed by Galaxy).
  - `cm_docker_images`: a list of Docker image names to pre-load on the image
+ - `cm_aws_instance_id`: AWS instance ID if targeting an AWS instance and want
+    to have Elastic Network Adapter (ENA) enabled. You probably want to pass
+    this parameter as a command line argument with
+    `--extra-vars cm_aws_instance_id=i-00dbc338a319e72cb`
 
 ### Control flow variables ###
 The following variables can be set to either `yes` or `no` to indicate if the
@@ -82,6 +100,9 @@ file that contains access information for the instance, for example:
 
     [image-builder]
     130.56.250.204 ansible_ssh_private_key_file=key.pem ansible_ssh_user=ubuntu
+
+    [localhost]
+    127.0.0.1 ansible_python_interpreter=/usr/local/bin/python
 
 Next, set any variables as desired and place the role into a playbook file
 (e.g., `playbook.yml`). This playbook assumes the role has been placed into

@@ -1,5 +1,11 @@
 ---
 
+- name: Install required packages
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - build-essential
+    - dkms
+
 - name: Download ixgbevf
   get_url:
     url: http://sourceforge.net/projects/e1000/files/ixgbevf%20stable/{{ ixgbevf_version }}/ixgbevf-{{ ixgbevf_version }}.tar.gz
@@ -26,3 +32,38 @@
 
 - name: Rebuild initramfs to load correct module at boot
   command: update-initramfs -c -k all
+
+- name: (AWS only) Check if ENA is enabled
+  command: aws ec2 describe-instances --instance-ids {{ cm_aws_instance_id }}  --query 'Reservations[].Instances[].EnaSupport'
+  register: ena_enabled
+  delegate_to: 127.0.0.1
+  sudo: no
+  when: cm_aws_instance_id is defined
+
+- name: (AWS only) Stop the instance
+  ec2:
+   state: 'stopped'
+   instance_ids: "{{ cm_aws_instance_id }}"
+   wait: yes
+  delegate_to: 127.0.0.1
+  sudo: no
+  when: cm_aws_instance_id is defined and not ena_enabled
+
+- name: (AWS only) Set the ENA attribute
+  command: aws ec2 modify-instance-attribute --instance-id {{ cm_aws_instance_id }} --ena-support
+  delegate_to: 127.0.0.1
+  sudo: no
+  when: cm_aws_instance_id is defined and not ena_enabled
+
+- name: (AWS only) Start the instance
+  ec2:
+   state: 'running'
+   instance_ids: "{{ cm_aws_instance_id }}"
+   wait: yes
+  delegate_to: 127.0.0.1
+  sudo: no
+  when: cm_aws_instance_id is defined and not ena_enabled
+
+- name: (AWS only) Wait for SSH to come up
+  wait_for_connection:
+  when: cm_aws_instance_id is defined and not ena_enabled
