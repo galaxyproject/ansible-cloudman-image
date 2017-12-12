@@ -24,3 +24,4 @@
     image: "{{ item }}"
     state: present
   with_items: "{{ cm_docker_images }}"
+  when: cm_is_aws

@@ -49,6 +49,9 @@ below).
     bridge bewteen VNC and noVNC servers
  - `psql_galaxyftp_password`: a password that will also be baked into the image
     and allows Galaxy to authenticate FTP users
+- `cm_aws_instance_id`: (AWS only) instance ID if targeting an AWS instance.
+    You probably want to pass this parameter as a command line argument with
+    `--extra-vars cm_aws_instance_id=i-00dbc338a319e72cb`
 
 ### Optional variables ###
  - `galaxy_user_name`: (default: `galaxy`) system username to be used for
@@ -68,10 +71,6 @@ below).
     reference genomes indices will be stored. Also Galaxy Data Managers will be
     installed here (via the Tool Shed, as designed by Galaxy).
  - `cm_docker_images`: a list of Docker image names to pre-load on the image
- - `cm_aws_instance_id`: AWS instance ID if targeting an AWS instance and want
-    to have Elastic Network Adapter (ENA) enabled. You probably want to pass
-    this parameter as a command line argument with
-    `--extra-vars cm_aws_instance_id=i-00dbc338a319e72cb`
 
 ### Control flow variables ###
 The following variables can be set to either `yes` or `no` to indicate if the
@@ -80,6 +79,8 @@ given part of the role should be executed:
  - `cm_system_environment`: (default: `yes`) setup system-level configurations
  - `cm_system_tools`: (default: `yes`) install given tools system wide
  - `cm_docker`: (default: `yes`) pull Docker containers on the image
+ - `cm_is_aws`: Indicate if targeting an AWS instance. By default, this will be
+    `true` if the `cm_aws_instance_id` variable is defined.
  - `cm_install_s3fs`: (default: `yes`) whether to install S3FS or not
  - `cm_configure_nginx`: (default: `yes`) whether to configure Nginx
  - `cm_install_proftpd`: (default: `yes`) whether to install ProFTPd server

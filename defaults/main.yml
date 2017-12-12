@@ -23,6 +23,8 @@ cleanup: no
 # This is intended to be set as a command line variable.
 only_cleanup: no
 
+cm_is_aws: "{{ true if cm_aws_instance_id is defined else false }}"
+
 # Swapfile setup
 cm_configure_swap: yes
 cm_swap_file: /swapfile
