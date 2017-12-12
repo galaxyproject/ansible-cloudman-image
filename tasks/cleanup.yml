@@ -29,6 +29,10 @@
     - /etc/init.d/rabbitmq-server stop
     - service rabbitmq-server stop
 
+- name: Remove all Docker containers
+  shell: docker rm $(docker ps -a -q)
+  ignore_errors: true
+
 - name: Delete unwanted files
   shell: rm -rf {{ item }}
   with_items:
