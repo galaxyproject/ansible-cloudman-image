@@ -15,4 +15,4 @@ galaxy_info:
   - clustering
 dependencies:
   - { role: smola.java, java_packages: 'oracle-java8-installer' }
-  - { role: galaxyproject.galaxy-os, galaxy_user_uid: 1001, docker_storage_location: /mnt/docker }
+  - { role: galaxyproject.galaxy-os, galaxy_user_uid: 10010, galaxy_user_gid: 10010, docker_storage_location: /mnt/docker }
