@@ -69,8 +69,7 @@
   lineinfile: dest=/etc/ssh/sshd_config regexp='^PrintLastLog\ yes' line='PrintLastLog no'
 
 - name: Create IPython config dir
-  shell: mkdir -p ~/.ipython/profile_default
-  sudo_user: "{{ item }}"
+  file: path="/home/{{ item }}/.ipython/profile_default" owner="{{ item }}" mode=0644 state=directory recurse=yes
   with_items:
     - "{{ default_user }}"
     - "{{ galaxy_user_name }}"
