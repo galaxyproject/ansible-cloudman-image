@@ -20,8 +20,8 @@
 
 - name: Clean apt cache to recover some disk space
   shell: apt-get clean
-  sudo: yes
-  sudo_user: root
+  become: yes
+  become_user: root
 
 - name: Stop RabbitMQ server
   shell: "{{ item }}"
@@ -45,7 +45,7 @@
 
 - name: Place a custom history file into the default_user's home dir
   copy: src=bash_history dest=~/.bash_history mode=0600
-  sudo_user: "{{ default_user }}"
+  become_user: "{{ default_user }}"
   ignore_errors: yes
 
   # Note that no ssh logins will be possible after this task runs!
