@@ -37,7 +37,7 @@
   command: aws ec2 describe-instances --instance-ids {{ cm_aws_instance_id }}  --query 'Reservations[].Instances[].EnaSupport'
   register: ena_enabled
   delegate_to: 127.0.0.1
-  sudo: no
+  become: no
   when: cm_aws_instance_id is defined
 
 - name: (AWS only) Stop the instance
@@ -46,13 +46,13 @@
    instance_ids: "{{ cm_aws_instance_id }}"
    wait: yes
   delegate_to: 127.0.0.1
-  sudo: no
+  become: no
   when: cm_aws_instance_id is defined and not ena_enabled
 
 - name: (AWS only) Set the ENA attribute
   command: aws ec2 modify-instance-attribute --instance-id {{ cm_aws_instance_id }} --ena-support
   delegate_to: 127.0.0.1
-  sudo: no
+  become: no
   when: cm_aws_instance_id is defined and not ena_enabled
 
 - name: (AWS only) Start the instance
@@ -61,7 +61,7 @@
    instance_ids: "{{ cm_aws_instance_id }}"
    wait: yes
   delegate_to: 127.0.0.1
-  sudo: no
+  become: no
   when: cm_aws_instance_id is defined and not ena_enabled
 
 - name: (AWS only) Wait for SSH to come up

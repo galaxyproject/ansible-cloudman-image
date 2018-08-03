@@ -110,7 +110,7 @@
 
 - name: Apply firewall rules
   shell: iptables-restore < /etc/iptables.firewall.rules
-  sudo_user: root
+  become_user: root
 
 - name: Autostart firewall on startup
   copy: src=startup_firewall.sh dest=/etc/network/if-pre-up.d/firewall mode="u+x"
@@ -120,7 +120,7 @@
   with_items:
     - "galaxy hard nofile 16384"
     - "galaxy soft nofile 16384"
-  sudo_user: root
+  become_user: root
 
 - name: Symlink trackster required binaries to /usr/bin since trackster specifically looks for them there
   file: src={{ galaxyFS_base_dir }}/tools/bin/{{ item }} dest=/usr/bin/{{ item }} state=link force=yes
@@ -128,5 +128,5 @@
     - wigToBigWig
     - bedGraphToBigWig
     - faToTwoBit
-  sudo: yes
-  sudo_user: root
+  become: yes
+  become_user: root
