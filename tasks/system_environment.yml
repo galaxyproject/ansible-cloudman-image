@@ -26,6 +26,16 @@
     - "alias 'll=ls -l'"
     - "export PATH={{ galaxyFS_base_dir }}/tools/bin:{{ postgresql_bin_dir }}:$PATH"  #"
 
+- name: Remove user-specific bash alias
+  lineinfile:
+    dest: "/home/{{ item }}/.bashrc"
+    line: "alias ll='ls -alF'"
+    state: absent
+  become_user: "{{ item }}"
+  with_items:
+    - "{{ default_user }}"
+    - "{{ galaxy_user_name }}"
+
 - name: Create a symlink placeholder to the Galaxy app dir
   file: src="{{ galaxy_server_dir }}" dest="~/galaxy-app" state=link force=yes
   become_user: "{{ item }}"
