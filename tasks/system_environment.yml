@@ -69,13 +69,24 @@
   lineinfile: dest=/etc/ssh/sshd_config regexp='^PrintLastLog\ yes' line='PrintLastLog no'
 
 - name: Create IPython config dir
-  file: path="/home/{{ item }}/.ipython/profile_default" owner="{{ item }}" mode=0644 state=directory recurse=yes
+  file:
+    path: "/home/{{ item }}/.ipython/profile_default"
+    owner: "{{ item }}"
+    group: "{{ item }}"
+    mode: 0755
+    state: directory
+    recurse: yes
   with_items:
     - "{{ default_user }}"
     - "{{ galaxy_user_name }}"
 
-- name: Setup IPython env
-  copy: src=ipython_config.py dest="/home/{{ item }}/.ipython/profile_default/ipython_config.py" mode=0644 owner="{{ item }}"  #"
+- name: Place IPython env config file
+  copy:
+    src: ipython_config.py
+    dest: "/home/{{ item }}/.ipython/profile_default/ipython_config.py"
+    mode: 0644
+    owner: "{{ item }}"
+    group: "{{ item }}"
   with_items:
     - "{{ default_user }}"
     - "{{ galaxy_user_name }}"
